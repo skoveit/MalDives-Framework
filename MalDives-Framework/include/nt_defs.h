@@ -7,6 +7,21 @@ typedef struct _UNICODE_STRING {
     PWSTR  Buffer;
 } UNICODE_STRING, * PUNICODE_STRING;
 
+
+typedef struct _PEB_LDR_DATA {
+    BYTE Reserved1[8];
+    PVOID Reserved2[3];
+    LIST_ENTRY InMemoryOrderModuleList;
+} PEB_LDR_DATA, *PPEB_LDR_DATA;
+
+typedef enum _PROCESSINFOCLASS {
+    ProcessBasicInformation = 0,
+    ProcessDebugPort = 7,
+    ProcessWow64Information = 26,
+    ProcessImageFileName = 27,
+    ProcessBreakOnTermination = 29
+} PROCESSINFOCLASS;
+
 // https://github.com/winsiderss/systeminformer/blob/master/phnt/include/ntexapi.h#L1324
 typedef enum _SYSTEM_INFORMATION_CLASS
 {
@@ -310,3 +325,59 @@ typedef NTSTATUS(NTAPI* fnNtQuerySystemInformation)(
     ULONG                    SystemInformationLength,
     PULONG                   ReturnLength
 );
+
+typedef NTSTATUS(NTAPI* fnNtQueryInformationProcess)(
+    HANDLE           ProcessHandle,
+    PROCESSINFOCLASS ProcessInformationClass,
+    PVOID            ProcessInformation,
+    ULONG            ProcessInformationLength,
+    PULONG           ReturnLength
+    );
+
+typedef NTSTATUS(NTAPI* fnNtDelayExecution)(
+    BOOLEAN              Alertable,
+    PLARGE_INTEGER       DelayInterval
+    );
+
+
+typedef NTSTATUS(NTAPI* fnNtWaitForSingleObject)(
+    HANDLE         Handle,
+    BOOLEAN        Alertable,
+    PLARGE_INTEGER Timeout
+    );
+
+typedef PVOID _ACTIVATION_CONTEXT;
+
+typedef struct _LDR_DATA_TABLE_ENTRY_CUSTOM
+{
+    LIST_ENTRY InLoadOrderLinks;
+    LIST_ENTRY InMemoryOrderLinks;
+    LIST_ENTRY InInitializationOrderLinks;
+    PVOID DllBase;
+    PVOID EntryPoint;
+    ULONG SizeOfImage;
+    UNICODE_STRING FullDllName;
+    UNICODE_STRING BaseDllName;
+    ULONG Flags;
+    WORD LoadCount;
+    WORD TlsIndex;
+    union
+    {
+        LIST_ENTRY HashLinks;
+        struct
+        {
+            PVOID SectionPointer;
+            ULONG CheckSum;
+        };
+    };
+    union
+    {
+        ULONG TimeDateStamp;
+        PVOID LoadedImports;
+    };
+    _ACTIVATION_CONTEXT* EntryPointActivationContext;
+    PVOID PatchInformation;
+    LIST_ENTRY ForwarderLinks;
+    LIST_ENTRY ServiceTagLinks;
+    LIST_ENTRY StaticLinks;
+} LDR_DATA_TABLE_ENTRY_CUSTOM, * PLDR_DATA_TABLE_ENTRY_CUSTOM;

