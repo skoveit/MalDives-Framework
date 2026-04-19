@@ -20,3 +20,4 @@ VOID PrintHexData(LPCSTR Name, PBYTE Data, SIZE_T Size) {
 
 	printf("};\n\n\n");
 }
+

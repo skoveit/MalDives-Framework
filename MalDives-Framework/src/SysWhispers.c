@@ -1,5 +1,7 @@
-#include "SysWhispers.h"
+#include "../include/SysWhispers.h"
 #include <stdio.h>
+
+#define DEBUG
 
 #define JUMPER
 

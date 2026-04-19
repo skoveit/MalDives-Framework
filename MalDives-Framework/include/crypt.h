@@ -1,5 +1,6 @@
 #pragma once
 #include <windows.h>
+#include <time.h>
 #include <stdio.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -31,3 +32,15 @@ BOOL Rc4EncryptionViSystemFunc032(IN PBYTE pRc4Key, IN PBYTE pPayloadData, IN DW
 BOOL GenerateUuidOutput(unsigned char* pShellcode, SIZE_T ShellcodeSize);
 BOOL UuidDeobfuscation(IN CHAR* UuidArray[], IN SIZE_T NmbrOfElements, OUT PBYTE* ppDAddress, OUT SIZE_T* pDSize);
 
+
+// HASH ---------------------------------------------------------------
+#define HASHA(API) (HashStringJenkinsOneAtATime32BitA((PCHAR) API))
+#define HASHW(API) (HashStringJenkinsOneAtATime32BitW((PWCHAR) API))
+
+UINT32 HashStringJenkinsOneAtATime32BitW(_In_ PWCHAR String); 
+UINT32 HashStringJenkinsOneAtATime32BitA(_In_ PCHAR String);
+
+
+// Protected Key -------------------------------------------------------
+BYTE BruteForceDecryption(IN BYTE HintByte, IN PBYTE pProtectedKey, IN SIZE_T sKey, OUT PBYTE* ppRealKey);
+VOID GenerateProtectedKey(IN BYTE HintByte, IN SIZE_T sKey, OUT PBYTE* ppProtectedKey);

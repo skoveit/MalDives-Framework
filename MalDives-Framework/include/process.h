@@ -1,4 +1,21 @@
-#include <windows.h>
+#include <Windows.h>
+#include <winternl.h>
+
+typedef NTSTATUS(NTAPI* fnNtQuerySystemInformation)(
+	SYSTEM_INFORMATION_CLASS SystemInformationClass,
+	PVOID                    SystemInformation,
+	ULONG                    SystemInformationLength,
+	PULONG                   ReturnLength
+	);
+
+typedef NTSTATUS(NTAPI* fnNtQueryInformationProcess)(
+	HANDLE           ProcessHandle,
+	PROCESSINFOCLASS ProcessInformationClass,
+	PVOID            ProcessInformation,
+	ULONG            ProcessInformationLength,
+	PULONG           ReturnLength
+	);
+
 
 // PROCESS ENUM ========================================================================== 
 BOOL PrintProcesses();
